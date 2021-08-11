@@ -63,16 +63,22 @@ function useMenuContext(component: string) {
 
   return context
 }
-
+//defineComponent => 为了使得ts组件定义时引用type
 export let Menu = defineComponent({
   name: 'Menu',
   props: { as: { type: [Object, String], default: 'template' } },
+  //使用['value'] 可以取出type 对象的 引用
   setup(props, { slots, attrs }) {
     let menuState = ref<StateDefinition['menuState']['value']>(MenuStates.Closed)
+    //按钮dom引用
     let buttonRef = ref<StateDefinition['buttonRef']['value']>(null)
+    //菜单组dom引用
     let itemsRef = ref<StateDefinition['itemsRef']['value']>(null)
+    //菜单项数据
     let items = ref<StateDefinition['items']['value']>([])
+    //根据字符串搜索
     let searchQuery = ref<StateDefinition['searchQuery']['value']>('')
+    //当前激活的菜单项
     let activeItemIndex = ref<StateDefinition['activeItemIndex']['value']>(null)
 
     let api = {
